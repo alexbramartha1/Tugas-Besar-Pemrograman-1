@@ -5,9 +5,10 @@
 #include <string.h> 	//Library dalam bahasa pemrograman C yang berfungsi sebagai tempat penyimpanan fungsi-fungsi yang digunakan untuk menangani string ataupun substring
 #include <time.h> 	//Library dalam bahasa pemrograman C yang berfungsi sebagai mengkonversi antara waktu berbagai format tanggal
 
-char pegawai[100]
+char pegawai[100]	
 char costumer[100]
 char type[25]
+char pengemudi[100]
 // Struct Login untuk menyimpan beberapa data user yaitu nama, username, password, dan nomor handphone
 typedef struct{
     char nama[100];
@@ -390,8 +391,8 @@ void pilihan_menu(){
 //=======================================================================//
 //Nama Fungsi     : Kasir Offline                       		 //
 //Input Argumen   : char pegawai[100], char costumer[100], char type[25] // 
-//		    int banyak,
-//Output Argumen  : -                                                    //
+//		    int banyak, float uang				 //
+//Output Argumen  : hasil, hasil2                                        //
 //Deskripsi       : salah satu dari 5 fitur yang ada. ini merupakan fitur//
 //		    kasir offline yang digunakan user untuk menyetak str-//
 //                  uk yang melakukan pembelian secara offline		 //
@@ -551,6 +552,178 @@ void kasir_offline(){
 			
 			else{
 			pilihan_menu();	
+			}
+       		break;
+       		
+   		case 3:
+			/*jika memilih case 3 yang berarti keluar ke menu utama dari Kasir Offline*/
+			pilihan_menu();
+       		break;
+   	}	
+	
+	getch();
+    system("cls");
+}
+//=======================================================================//
+//Nama Fungsi     : Kasir Online	                       		 //
+//Input Argumen   : char pegawai[100], char pengemudi[100], char costumer//
+//		    [100], char type[25], int banyak, float uang	 //				 
+//Output Argumen  : -                                                    //
+//Deskripsi       : salah satu dari 5 fitur yang ada. ini merupakan fitur//
+//		    kasir online yang digunakan user untuk menyetak str- //
+//                  uk yang melakukan pembelian secara online dan memil- //
+//		    iki komisi masing-masing aplikasi			 //
+//                                                            		 //
+//Tgl             : 24-12-2021                                           //
+//Revisi          : 0                                          		 //
+//Oleh            : I Made Satya Rama Sai Natha                          //
+//NIM		  : 2105551039						 //
+//Kelas           : B                                                    //
+//=======================================================================//
+// Menampilkan void kasir_online jika void kasir_online di panggil saat pilihan_menu case 2
+void kasir_online(){
+	/*Variabel pilihan dengan tipe data integer yang digunakan untuk menyimpan pilihan user antara Kasir,
+	Display Barang, Kembali ke Menu Pembayaran*/
+	int pilihan;
+	/*Tipe data char di dalam bahasa C digunakan untuk menampung 1 digit karakter, pada pilih1, pilih2, utama. 
+	Variabel yang didefinisikan untuk menampung tipe data char membutuhkan 1 byte memory*/
+	char pilih1, pilih2, utama;
+	
+	/*menampilkan tampilan dari Kasir Online yang memiliki beberapa pilihan seperti Kasir, Display Barang
+	dan Kembali ke Menu Pembayaran*/
+	printf("\t\t\t\t\t=========================================================\n");
+	printf("\t\t\t\t\t                      Kasir Online                 \n");
+	printf("\t\t\t\t\t---------------------------------------------------------\n");	
+	printf("\t\t\t\t\t    1. Kasir          				   \n");
+	printf("\t\t\t\t\t    2. Display Barang				           \n");
+	printf("\t\t\t\t\t    3. Kembali ke Menu Pembayaran			   \n");
+	printf("\t\t\t\t\t---------------------------------------------------------\n");
+	//user diwajibkan untuk memasukan angka pilihan untuk melanjutkan program Kasir Online
+  	printf("\t\t\t\t\t      Masukkan angka pilihan untuk melanjutkan = ");
+	//meng scan apa yang dipilih oleh user dengan tipe data integer
+	scanf("%d", &pilihan);
+	
+	//Menjalankan pilihan sesuai perintah user
+	switch(pilihan){
+   		case 1:
+			/*start digunakan untuk kondisi pada saat awal perulangan.berisi perintah untuk memberikan nilai kepada variabel counter*/
+   			start:
+   			printf("\n\t\t\t\t\tNama Pegawai Kasir   => ");
+			//user menginput nama pegawai 
+			scanf("\n%[^\n]s", &pegawai);
+			
+			printf("\t\t\t\t\tNama Pengemudi       => ");
+			//user menginput nama pengemudi
+			scanf("\n%[^\n]s", &pengemudi);
+			
+			printf("\t\t\t\t\tNama Customer        => ");
+			//user menginput nama costumer
+			scanf("\n%[^\n]s", &customer);
+			
+			printf("\n\t\t\t\t\tPilih Aplikasi (GoFood / GrabFood / ShopeeFood\n");
+			printf("\t\t\t\t\tAplikasi Pemesanan   => ");
+			//user menginput tipe aplikasi (GoFood / GrabFood / ShopeeFood)
+			scanf("\n%[^\n]s", &type);			
+  		
+		   	printf("\n\t\t\t\t\tBerapa barang yang dibeli? \n");
+			printf("\t\t\t\t\t=> ");
+			//user menginput total barang yang dibeli
+			scanf("%d", &banyak);
+			getchar();
+			
+			/*Penggunaan perulangan FOR untuk menampilkan output printf dari program sebanyak yang di inputkan user
+			pada variable banyak. Pada perulangan FOR, inisialisasi variabel, syarat dan operasi bilangan ditulis dalam satu kelompok dan 
+			terpisah dari statemen program yang akan dijalankan */
+			for(i = 0; i < banyak; i++){
+				printf("\n\t\t\t\t\tBarang yang Dibeli => ");
+				scanf("\n%[^\n]s", &nama_bar[i]);
+
+				printf("  \t\t\t\t\tHarga Produk       => Rp. ");
+				scanf("%lf", &harga_bar[i]);
+				
+				printf("  \t\t\t\t\tTotal Produk       => ");
+				scanf("%d", &total_bar[i]);
+				
+				/*menampilkan total harga dikali total barang, dan harga barang *20% karena biaya komisi dari aplikasi tersebut
+				agar user tidak dirugikan oleh komisi. Setelah itu meng output total hasil yang dibayarkan oleh costumer*/ 
+				hasil += (harga_bar[i] + (harga_bar[i] * 0.2)) * total_bar[i];
+			}
+			//start2 digunakan untuk memulai kembali jika perintah if berjalan (uang < hasil)
+			start2:
+			printf("\n\t\t\t\t\tUang Customer      => Rp. ");
+			//mengscan Uang Costumer yang di inputkan oleh user
+			scanf("%f", &uang);
+			
+			//perhitungan hasil2 sebagai kembalian yang diterima oleh costumer
+			hasil2 = uang - hasil;
+			
+			//fungsi if yang berjalan jika uang < hasil
+			if(uang < hasil){
+				system("cls");
+				printf("\t\t\t\t\t=========================================================\n");
+				printf("\t\t\t\t\t                  MAAF TIDAK TERIMA BON!                 \n");
+				printf("\t\t\t\t\t---------------------------------------------------------\n");
+				getch();
+				//go to start2 untuk melanjutkan menginput uang dengan benar atau uang=> hasil)
+				goto start2;
+			}
+			//else digunakan jika uang => hasil
+			else{
+				printf("\n\t\t\t\t\tApakah yakin ingin mencetak struk? (y/t) ");
+				scanf("\n%c", &pilih2);
+				
+				//jika memilih character 'y
+				if(pilih2 == 'y'){
+					getch();
+					struk2();
+					system("cls");
+				}
+				//jika memilih character selain 'y'
+				else{
+					system("cls");
+					goto start;
+				}	
+			}
+			
+			getch();
+			system("cls");
+			struk2();
+			
+			getch();
+			system("cls");
+			
+			printf("\n\t\t\t\t\tApakah ingin ke Menu Utama? (y/t) ");
+			scanf("\n%c", &utama);
+			
+			if(utama == 'y'){
+				getch();
+				system("cls");
+				pilihan_menu();
+			}
+			
+			else{
+				system("cls");
+				printf("\t\t\t\t\t=========================================================\n");
+				printf("\t\t\t\t\t        Terima Kasih Sudah Menggunakan Program Ini       \n");
+				printf("\t\t\t\t\t---------------------------------------------------------\n");
+				getch();
+				system("cls");	
+				exit(0);
+			}	
+		   	break;
+		   	
+   		case 2:
+			/*void display dipanggil jika user tidak mengetahui harga ataupun lupa dengan harga yang tertera beserta namanya*/
+   			display();
+   			printf("\t\t\t\t\tApakah ingin ke kasir? (y/t) ");
+   			scanf("\n%c", &pilih1);
+   			
+   			if(pilih1 == 'y'){
+   				getch();
+   				goto start;
+			   }
+			else{
+				pilihan_menu();	
 			}
        		break;
        		
