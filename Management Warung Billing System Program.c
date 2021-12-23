@@ -21,8 +21,11 @@ void sign_in();				//Merupakan fungsi yang digunakan untuk Sign In atau masuk ke
 void sign_up();				//Merupakan fungsi yang digunakan untuk menyimpan perintah-perintah Sign Up (pendaftaran user) dan nantinya akan menyimpan nama, nomor handphone, username, dan password
 char login_file[] = "Login User.txt";	//Assign login_file agar menyimpan string "Login User.txt"
 
+void pilihan_menu();
+
+
 int main(){
-    /*ungsi untuk mengubah warna background terminal menjadi putih dan font menjadi hitam
+    /*fungsi untuk mengubah warna background terminal menjadi putih dan font menjadi hitam
       F untuk background putih dan 0 untuk font hitam*/
     system("color F0");
 	
@@ -247,7 +250,7 @@ void sign_in(){
 
     system("cls");
     
-    //Membeaca file "Login User.txt"
+    //Membaca file "Login User.txt"
     while(fread(&l, sizeof(l), 1, login)){
 	    
         /*Compare username dan password yang diinput user kedalam fungsi
@@ -301,4 +304,69 @@ void sign_in(){
     }
     fclose(login);
     return;
+}
+//=======================================================================//
+//Nama Fungsi     : Pilihan Menu                       		         //
+//Input Argumen   : int pilihan						 //
+//Output Argumen  : -                                                    //
+//Deskripsi       : Menu utama program Management Warung Billing System  //
+//		    program yang memuat berbagai fungsi sesuai dengan na-//
+//                  ma atau judul yang tertera 				 //
+//                                                            		 //
+//Tgl             : 23-12-2021                                           //
+//Revisi          :                                           		 //
+//Oleh            : I Made Satya Rama Sai Natha                          //
+//NIM		  : 2105551039						 //
+//Kelas           : B                                                    //
+//=======================================================================//
+
+/*Menampilkan Pilihan Menu yang ingin dijalankan dan terdapat beberapa pilihan yang tersedia seperti 
+Kasir Offline, Kasir Online, Tambah Barang, Display Barang, dan juga pilihan Exit untuk keluar dari program*/
+void pilihan_menu(){
+	/*Variabel pilihan dengan tipe data integer yang digunakan untuk menyimpan pilihan user antara Kasir Online,
+	Kasir Offline, Tambah Barang, Display Barang, Exit*/
+	int pilihan;
+	
+	do{
+		system("cls");
+		printf("\t\t\t\t\t=========================================================\n");
+		printf("\t\t\t\t\t                 Menu Plihan Pembayaran	               \n");
+		printf("\t\t\t\t\t---------------------------------------------------------\n");
+		printf("\t\t\t\t\t    1. Kasir Offline   							 \n");
+		printf("\t\t\t\t\t    2. Kasir Online						         \n");
+		printf("\t\t\t\t\t    3. Tambah Barang						         \n");
+		printf("\t\t\t\t\t    4. Display Barang          					 \n");
+		printf("\t\t\t\t\t    5. Exit								         \n");
+		printf("\t\t\t\t\t---------------------------------------------------------\n");
+  		printf("\t\t\t\t\t      Masukkan angka pilihan untuk melanjutkan = ");
+		scanf("%d", &pilihan);
+    
+		system("cls");
+		
+	switch(pilihan){
+    		case 1:
+    			kasir_offline();
+        		break;
+    		case 2:
+    			kasir_online();
+        		break;
+    		case 3:
+				add();
+        		break;
+		case 4:
+			display();
+			break;	
+		case 5:
+			system("cls");
+			printf("\t\t\t\t\t=========================================================\n");
+			printf("\t\t\t\t\t        Terima Kasih Sudah Menggunakan Program Ini       \n");
+			printf("\t\t\t\t\t---------------------------------------------------------\n");
+			getch();
+			system("cls");	
+			exit(0);
+			break;
+   		}	
+	}
+	while(pilihan != 5);
+	system("cls");
 }
