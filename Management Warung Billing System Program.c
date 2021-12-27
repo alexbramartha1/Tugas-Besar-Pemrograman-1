@@ -963,3 +963,38 @@ void display(){
 	fclose(fp);
 	getch();
 }
+//=======================================================================//
+//Nama Fungsi     : Acak Id                      		 	 //
+//Input Argumen   : 							 //		 
+//Output Argumen  : char		         			 //
+//Deskripsi       : Fungsi yang digunakan untuk menampilkan Id yang diac-//
+//		    ak yang sudah ditentukan				 //	
+//Tgl             : 28-12-2021                                           //
+//Oleh            : I Made Satya Rama Sai Natha                          //
+//NIM		  : 2105551039						 //
+//Kelas           : B                                                    //
+//=======================================================================//
+
+//void acak_id digunakan sebagai pencetak id pada struk
+void acak_id(){
+    //static const char yang berfungsi untuk mendefinisikan sebuah variable yang nilainya tak dapat di rubah atau sudah di tetapkan oleh user
+    static const char huruf[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    //menampilkan jumlah pencetakan yang ditetapkan
+    const size_t jumlah = sizeof(huruf) - 27; 
+    size_t i, j;
+
+    srand(time(NULL));
+
+    for(i = 0; i < 1; i++) {
+        for(j = 0; j < jumlah; j++) {
+            char random_char;
+	    //fungsi untuk mengacak character yang sudah ditetapkan
+            int random_index = (double)rand() / RAND_MAX * jumlah;
+            
+	    //fungsi untuk memanggil secara random pada huruf[random_index] 
+            random_char = huruf[random_index];
+            printf("%c", random_char);
+        }
+        printf("\n");
+    }
+}
