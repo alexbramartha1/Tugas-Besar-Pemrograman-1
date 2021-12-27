@@ -44,6 +44,9 @@ void waktu();				//Merupakan fungsi yang digunakan untuk menampilkan waktu yang 
 void struk();				//Merupakan fungsi yang digunakan untuk menampilkan inputan dari fungsi kasir_offline
 void struk2();				//Merupakan fungsi yang digunakan untuk menampilkan inputan dari fungsi kasir_online
 
+void add();
+void display();
+char recordInven[] = "Penampungan.txt"
 int main(){
     /*fungsi untuk mengubah warna background terminal menjadi putih dan font menjadi hitam
       F untuk background putih dan 0 untuk font hitam*/
@@ -924,4 +927,39 @@ void add(){
 	system("cls");
 	//pilihan_menu fungsi untuk kenbali ke void pilihan_menu
 	pilihan_menu();
+}
+//=======================================================================//
+//Nama Fungsi     : Display Barang                       		 //
+//Input Argumen   : 							 //		 
+//Output Argumen  : c		         				 //
+//Deskripsi       : Fungsi ini digunakan untuk menampilkan barang yang s-//
+//		    udah ditambahkan dan mendisplay dengan meng open File//
+//		    yang sudah dibuat					 //
+//Tgl             : 28-12-2021                                           //
+//Oleh            : I Made Satya Rama Sai Natha                          //
+//NIM		  : 2105551039						 //
+//Kelas           : B                                                    //
+//=======================================================================//
+//void display digunakan untuk menampilkan display barang yang sudah ter record oleh void add
+void display(){
+	char pilihan;
+	//FILE di inisialisasi dengan *fp
+	FILE *fp;
+	
+	//membuka fp dengan fopen recordInven dari add degann "r" atau read 
+	fp = fopen (recordInven, "r");
+	
+	//menampilkan produk yang tersedia beserta harga
+	printf("\t\t\t\t\t=========================================================\n");
+	printf("\t\t\t\t\t                     Produk Tersedia                \n");
+	printf("\t\t\t\t\t---------------------------------------------------------\n");
+	printf("\t\t\t\t\t|   Nama Produk                 |   Harga     \n");
+	printf("\t\t\t\t\t---------------------------------------------------------\n");
+	//Perulangan while untuk mencetak isi dari File yang telah di inputkan sebelumnya pada void 
+	while((c = getc(fp)) != EOF){	
+		printf("%c", c);
+	}
+	printf("\t\t\t\t\t---------------------------------------------------------\n");
+	fclose(fp);
+	getch();
 }
