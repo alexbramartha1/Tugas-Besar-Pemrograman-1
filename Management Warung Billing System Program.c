@@ -875,3 +875,53 @@ void struk2(){
 	printf("\t\t\t\t\tKEMBALIAN       		=> RP. %.lf\n", hasil2);
 	printf("\t\t\t\t\t=================================================\n");
 }
+//=======================================================================//
+//Nama Fungsi     : Tambah Produk                       		 //
+//Input Argumen   : t.name , t.price					 //		 
+//Output Argumen  : t.name, t.price         				 //
+//Deskripsi       : Fungsi ini digunakan untuk menambahkan produk yang a-//
+//		    da dan disimpan pada file untuk ditampilkan pada dis-//
+//		    play						 //
+//Tgl             : 28-12-2021                                           //
+//Oleh            : I Made Satya Rama Sai Natha                          //
+//NIM		  : 2105551039						 //
+//Kelas           : B                                                    //
+//=======================================================================//
+/*Void add ini digunakan untuk menambahkan value barang yang ingin ditambahkan pada aplikasi*/
+void add(){
+	system("cls");
+	//menampilkan tampilan tambah produk
+	printf("\t\t\t\t\t=========================================================\n");
+	printf("\t\t\t\t\t                     Tambah Produk                \n");
+	printf("\t\t\t\t\t---------------------------------------------------------\n");
+	
+	//perintah untuk menginput berapa barang yang ingin ditambahkan
+	printf("\n\t\t\t\t\tBerapa barang yang ingin ditambahkan? \n");
+	printf("\t\t\t\t\t=> ");
+	scanf("%d", &no);
+	
+	//Operasi FILE dalam Bahasa C berguna untuk menyimpan atau membaca data langsung ke sebuah file. Dengan demikian, data kita akan selalu ada dalam suatu file
+	//File di inisialisasi sebagai *fp
+	FILE *fp;
+	
+	//fopen digunakan untuk membuka file.txt dari recordInvend dan fungsi append berfungsi untuk menambahkan atau ADD value pada file tersebut 
+	fp = fopen (recordInven, "a");
+	
+	//fungsi perulangan untuk menampilkan seberapa banyak barang yang kita tambahkan
+	for(i = 0; i < no; i++){
+		printf("  \t\t\t\t\tNama Produk   : ");
+		scanf("\n%[^\n]s", t.name);
+		
+		printf("  \t\t\t\t\tHarga Produk  : Rp. ");
+		scanf("%d", &t.price);
+	
+	//fprintf digunakan untuk menulis value yang di input ke dalam file
+	fprintf(fp, "\t\t\t\t\t%-20s \t\tRp. %3d    \n", t.name, t.price);
+	}	
+	
+	fclose(fp);
+	getch();
+	system("cls");
+	//pilihan_menu fungsi untuk kenbali ke void pilihan_menu
+	pilihan_menu();
+}
