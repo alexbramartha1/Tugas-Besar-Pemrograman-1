@@ -9,6 +9,7 @@ char pegawai[100]
 char costumer[100]
 char type[25]
 char pengemudi[100]
+
 // Struct Login untuk menyimpan beberapa data user yaitu nama, username, password, dan nomor handphone
 typedef struct{
     char nama[100];
@@ -165,7 +166,11 @@ void sign_up(){
     
     //Mengecek apakah pointer daftar menunjuk kepada file yang dituju ("Login User.txt")
     if(daftar == NULL){
-        printf("Maaf Penyimpanan File TIDAK TERSEDIA");
+        printf("\t\t\t\t\t=========================================================\n");
+	printf("\t\t\t\t\t          FILE IS NOT FOUND IN YOUR DIRECTORY	           \n");
+	printf("\t\t\t\t\t---------------------------------------------------------\n");
+	getch();
+	system("cls");
         exit(1);
     }
 	
@@ -193,7 +198,7 @@ void sign_up(){
     //Menulis seluruh input pengguna kedalam file "Login User.txt"
     fwrite(&l, sizeof(l), 1, daftar);
     fclose(daftar);
-    printf("\n\t\t\t\t\t Sign Up Success!");
+    printf("\n\t\t\t\t\t Sign Up SUCCESS!");
     printf("\n\t\t\t\t\t Akun anda sudah dibuat!");
     printf("\n\t\t\t\t\t=========================================================\n");
     getch();
@@ -239,7 +244,11 @@ void sign_in(){
 	
     //Mengecek apakah pointer login menunjuk kepada file yang dituju ("Login User.txt")
     if(login == NULL){
-        printf("Maaf Penyimpanan File TIDAK TERSEDIA\n");
+        printf("\t\t\t\t\t=========================================================\n");
+	printf("\t\t\t\t\t          FILE IS NOT FOUND IN YOUR DIRECTORY	           \n");
+	printf("\t\t\t\t\t---------------------------------------------------------\n");
+	getch();
+	system("cls");
         sign_up();
     }
     
@@ -265,7 +274,8 @@ void sign_in(){
 		printf("\t\t\t\t\t                    Sign In SUCCESS!	                   \n");
 		printf("\t\t\t\t\t---------------------------------------------------------\n");
 		getch();
-		system("cls");	
+		system("cls");
+		
         }
         else{
 		
@@ -309,6 +319,7 @@ void sign_in(){
     fclose(login);
     return;
 }
+
 //=======================================================================//
 //Nama Fungsi     : Pilihan Menu                       		         //
 //Input Argumen   : int pilihan						 //
@@ -338,13 +349,14 @@ void pilihan_menu(){
 		//menampilkan beberapa pilihan pada menu utama yang ingin digunakan atau dijalankan oleh user
 		system("cls");
 		printf("\t\t\t\t\t=========================================================\n");
-		printf("\t\t\t\t\t                 Menu Plihan Pembayaran	               \n");
+		printf("\t\t\t\t\t                 Menu Plihan Pembayaran	           \n");
 		printf("\t\t\t\t\t---------------------------------------------------------\n");
-		printf("\t\t\t\t\t    1. Kasir Offline   							 \n");
-		printf("\t\t\t\t\t    2. Kasir Online						         \n");
-		printf("\t\t\t\t\t    3. Tambah Barang						         \n");
-		printf("\t\t\t\t\t    4. Display Barang          					 \n");
-		printf("\t\t\t\t\t    5. Exit								         \n");
+		printf("\t\t\t\t\t    1. Kasir Offline   				   \n");
+		printf("\t\t\t\t\t    2. Kasir Online			       	           \n");
+		printf("\t\t\t\t\t    3. Tambah Produk					   \n");
+		printf("\t\t\t\t\t    4. Display Produk					   \n");
+		printf("\t\t\t\t\t    5. Delete Produk					   \n");
+		printf("\t\t\t\t\t    6. Exit					           \n");
 		printf("\t\t\t\t\t---------------------------------------------------------\n");
   		printf("\t\t\t\t\t      Masukkan angka pilihan untuk melanjutkan = ");
 		//meng scan apa yang dipilih oleh user dengan tipe data integer
@@ -372,7 +384,11 @@ void pilihan_menu(){
 			display();
 			break;	
 		case 5:
-			/*jika user memilih case 5 akan dibawa kepada output yang berisikan akhir dari program karena
+			//jika user memilih case 5 akan dibawa kepada void delete
+			delete();
+			break;
+		case 6:
+			/*jika user memilih case 6 akan dibawa kepada output yang berisikan akhir dari program karena
 			case 5 merupakan pilihan untuk Exit dari program*/
 			system("cls");
 			printf("\t\t\t\t\t=========================================================\n");
@@ -385,9 +401,10 @@ void pilihan_menu(){
    		}	
 	}
 	//ketika pilihan case 5 fungsi dari While akan berjalan setelah selesai dari case 5
-	while(pilihan != 5);
+	while(pilihan != 6);
 	system("cls");
 }
+
 //=======================================================================//
 //Nama Fungsi     : Kasir Offline                       		 //
 //Input Argumen   : char pegawai[100], char costumer[100], char type[25] // 
@@ -416,11 +433,10 @@ void kasir_offline(){
 	/*menampilkan tampilan dari kasir Offline yang memiliki beberapa pilihan seperti Kasir, Display Barang
 	dan Kembali ke Menu Pembayaran*/
 	printf("\t\t\t\t\t=========================================================\n");
-	printf("\t\t\t\t\t                      Kasir Offline                \n");
+	printf("\t\t\t\t\t                      Kasir Offline                      \n");
 	printf("\t\t\t\t\t---------------------------------------------------------\n");	
 	printf("\t\t\t\t\t    1. Kasir          				   \n");
-	printf("\t\t\t\t\t    2. Display Barang					   \n");
-	printf("\t\t\t\t\t    3. Kembali ke Menu Pembayaran			   \n");
+	printf("\t\t\t\t\t    2. Kembali ke Menu Pembayaran			   \n");
 	printf("\t\t\t\t\t---------------------------------------------------------\n");
 	//user diwajibkan untuk memasukan angka pilihan untuk melanjutkan program Kasir Offline
   	printf("\t\t\t\t\t      Masukkan angka pilihan untuk melanjutkan = ");
@@ -430,8 +446,25 @@ void kasir_offline(){
 	//Menjalankan pilihan sesuai perintah user
 	switch(pilihan){
    		case 1:
-			/*start digunakan untuk kondisi pada saat awal perulangan.berisi perintah untuk memberikan nilai kepada variabel counter*/
+			system("cls");
    			start:
+   			printf("\t\t\t\t\t=========================================================\n");
+			printf("\t\t\t\t\t                    Input Data Pembelian                 \n");
+			printf("\t\t\t\t\t---------------------------------------------------------\n");
+			printf("\n\t\t\t\t\tApakah ingin mendisplay barang? (y/t) ");
+			scanf("\n%c", &pilih4);
+			
+			if(pilih4 == 'y'){
+				getch();
+				display();
+			}
+			
+			else{
+				goto start3;
+			}
+			
+			/*start digunakan untuk kondisi pada saat awal perulangan.berisi perintah untuk memberikan nilai kepada variabel counter*/
+   			start3:
    			printf("\n\t\t\t\t\tNama Pegawai Kasir => ");
 			//user menginput nama pegawai 
 			scanf("\n%[^\n]s", &pegawai);
@@ -445,17 +478,16 @@ void kasir_offline(){
 			//user menginput type pembelian (Take Away/Dine In)
 			scanf("\n%[^\n]s", &type);			
   		
-		   	printf("\n\t\t\t\t\tBerapa barang yang dibeli? \n");
+		   	printf("\n\t\t\t\t\tBerapa produk yang dibeli? \n");
 			printf("\t\t\t\t\t=> ");
 			//user menginput total barang yang dibeli
 			scanf("%d", &banyak);
-			getchar();
 			
 			/*Penggunaan perulangan FOR untuk menampilkan output printf dari program sebanyak yang di inputkan user
 			pada variable banyak. Pada perulangan FOR, inisialisasi variabel, syarat dan operasi bilangan ditulis dalam satu kelompok dan 
 			terpisah dari statemen program yang akan dijalankan */
 			for(i = 0; i < banyak; i++){
-				printf("\n\t\t\t\t\tBarang yang Dibeli => ");
+				printf("\n\t\t\t\t\tProduk yang Dibeli => ");
 				scanf("\n%[^\n]s", &nama_bar[i]);
 
 				printf("  \t\t\t\t\tHarga Produk       => Rp. ");
@@ -467,8 +499,6 @@ void kasir_offline(){
 				//menampilkan total harga dikali total barang, sehingga mengeluarkan total hasil yang dibayarkan oleh costumer 
 				hasil += harga_bar[i] * total_bar[i];
 			}		
-			//hasil2 digunakan untuk hasil kembalian yang di terima oleh costumer dari uang - hasil
-			hasil2 = uang - hasil;
 			
 			//start2 digunakan untuk memulai kembali jika perintah if berjalan (uang < hasil)
 			start2:
@@ -498,24 +528,24 @@ void kasir_offline(){
 				//jika memilih character 'y' 
 				if(pilih2 == 'y'){
 					getch();
-					/*mencetak struk dengan void struk
+					system("cls");
+					//mencetak struk dengan void struk
 					struk();
+					getch();
+					
+					if(hasil > 0){
+						hasil = 0;
+					}
+					
 					system("cls");
 				}
 				//jika memilih character selain 'y'
 				else{
 					system("cls");
-					/*user akan dibawa kepada fungsi start
+					//user akan dibawa kepada fungsi start
 					goto start;
 				}	
 			}
-
-			getch();
-			system("cls");
-			struk();
-			
-			getch();
-			system("cls");
 			
 			//program menanyakan ingin ke menu utama?
 			printf("\n\t\t\t\t\tApakah ingin ke Menu Utama? (y/t) ");
@@ -540,30 +570,14 @@ void kasir_offline(){
 		   	break;
 		   	
    		case 2:
-			/*void display dipanggil jika user tidak mengetahui harga ataupun lupa dengan harga yang tertera beserta namanya*/
-   			display();
-   			printf("\t\t\t\t\tApakah ingin ke kasir? (y/t) ");
-   			scanf("\n%c", &pilih1);
-   			
-   			if(pilih1 == 'y'){
-   				getch();
-   				goto start;
-			}
-			
-			else{
-			pilihan_menu();	
-			}
-       		break;
-       		
-   		case 3:
-			/*jika memilih case 3 yang berarti keluar ke menu utama dari Kasir Offline*/
 			pilihan_menu();
-       		break;
+       			break;
    	}	
 	
-	getch();
-    system("cls");
+        getch();
+        system("cls");
 }
+
 //=======================================================================//
 //Nama Fungsi     : Kasir Online	                       		 //
 //Input Argumen   : char pegawai[100], char pengemudi[100], char costumer//
@@ -592,11 +606,10 @@ void kasir_online(){
 	/*menampilkan tampilan dari Kasir Online yang memiliki beberapa pilihan seperti Kasir, Display Barang
 	dan Kembali ke Menu Pembayaran*/
 	printf("\t\t\t\t\t=========================================================\n");
-	printf("\t\t\t\t\t                      Kasir Online                 \n");
+	printf("\t\t\t\t\t                      Kasir Online                       \n");
 	printf("\t\t\t\t\t---------------------------------------------------------\n");	
 	printf("\t\t\t\t\t    1. Kasir          				   \n");
-	printf("\t\t\t\t\t    2. Display Barang				           \n");
-	printf("\t\t\t\t\t    3. Kembali ke Menu Pembayaran			   \n");
+	printf("\t\t\t\t\t    2. Kembali ke Menu Pembayaran			   \n");
 	printf("\t\t\t\t\t---------------------------------------------------------\n");
 	//user diwajibkan untuk memasukan angka pilihan untuk melanjutkan program Kasir Online
   	printf("\t\t\t\t\t      Masukkan angka pilihan untuk melanjutkan = ");
@@ -606,8 +619,25 @@ void kasir_online(){
 	//Menjalankan pilihan sesuai perintah user
 	switch(pilihan){
    		case 1:
-			/*start digunakan untuk kondisi pada saat awal perulangan.berisi perintah untuk memberikan nilai kepada variabel counter*/
+			system("cls");
    			start:
+   			printf("\t\t\t\t\t=========================================================\n");
+			printf("\t\t\t\t\t                    Input Data Pembelian                 \n");
+			printf("\t\t\t\t\t---------------------------------------------------------\n");
+			printf("\n\t\t\t\t\tApakah ingin mendisplay barang? (y/t) ");
+			scanf("\n%c", &pilih4);
+			
+			if(pilih4 == 'y'){
+				getch();
+				display();
+			}
+	
+			else{
+				goto start3;
+			}	
+			
+			/*start digunakan untuk kondisi pada saat awal perulangan.berisi perintah untuk memberikan nilai kepada variabel counter*/
+   			start3:
    			printf("\n\t\t\t\t\tNama Pegawai Kasir   => ");
 			//user menginput nama pegawai 
 			scanf("\n%[^\n]s", &pegawai);
@@ -625,7 +655,7 @@ void kasir_online(){
 			//user menginput tipe aplikasi (GoFood / GrabFood / ShopeeFood)
 			scanf("\n%[^\n]s", &type);			
   		
-		   	printf("\n\t\t\t\t\tBerapa barang yang dibeli? \n");
+		   	printf("\n\t\t\t\t\tBerapa produk yang dibeli? \n");
 			printf("\t\t\t\t\t=> ");
 			//user menginput total barang yang dibeli
 			scanf("%d", &banyak);
@@ -635,7 +665,7 @@ void kasir_online(){
 			pada variable banyak. Pada perulangan FOR, inisialisasi variabel, syarat dan operasi bilangan ditulis dalam satu kelompok dan 
 			terpisah dari statemen program yang akan dijalankan */
 			for(i = 0; i < banyak; i++){
-				printf("\n\t\t\t\t\tBarang yang Dibeli => ");
+				printf("\n\t\t\t\t\tProduk yang Dibeli => ");
 				scanf("\n%[^\n]s", &nama_bar[i]);
 
 				printf("  \t\t\t\t\tHarga Produk       => Rp. ");
@@ -675,7 +705,14 @@ void kasir_online(){
 				//jika memilih character 'y
 				if(pilih2 == 'y'){
 					getch();
+					system("cls");
 					struk2();
+					getch();
+					
+					if(hasil > 0){
+						hasil = 0;
+					}
+					
 					system("cls");
 				}
 				//jika memilih character selain 'y'
@@ -684,13 +721,6 @@ void kasir_online(){
 					goto start;
 				}	
 			}
-			
-			getch();
-			system("cls");
-			struk2();
-			
-			getch();
-			system("cls");
 			
 			printf("\n\t\t\t\t\tApakah ingin ke Menu Utama? (y/t) ");
 			scanf("\n%c", &utama);
@@ -711,28 +741,13 @@ void kasir_online(){
 				exit(0);
 			}	
 		   	break;
-		   	
-   		case 2:
-			/*void display dipanggil jika user tidak mengetahui harga ataupun lupa dengan harga yang tertera beserta namanya*/
-   			display();
-   			printf("\t\t\t\t\tApakah ingin ke kasir? (y/t) ");
-   			scanf("\n%c", &pilih1);
-   			
-   			if(pilih1 == 'y'){
-   				getch();
-   				goto start;
-			   }
-			else{
-				pilihan_menu();	
-			}
-       		break;
        		
-   		case 3:
-			/*jika memilih case 3 yang berarti keluar ke menu utama dari Kasir Offline*/
+   		case 2:
+			/*jika memilih case 2 yang berarti keluar ke menu utama dari Kasir Online*/
 			pilihan_menu();
-       		break;
+       			break;
    	}	
 	
-	getch();
+    getch();
     system("cls");
 }
