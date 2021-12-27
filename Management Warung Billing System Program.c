@@ -18,6 +18,7 @@ char pegawai[100];		//Variabel pegawai dengan tipe data char yang digunakan untu
 char customer[100];		//Variabel customer dengan tipe data char yang digunakan untuk menyimpan input dari user mengenai nama customer yang melakukan pembelian di kasir offline dan online
 char type[25];			//Variabel type dengan tipe data char yang digunakan untuk menyimpan input dari user mengenai tipe pembelian jika di offline apakah Take Away atau Dine In sedangkan di online apakah dari aplikasi gojek, shopee food, atau grab food
 char pengemudi[100];		//Variabel pengemudi dengan tipe data char yang digunakan untuk menyimpan input dari user mengenai siapa pengemudi yang memesan di kasir online
+time_t waktuserver;		//Variabel waktuserver yang digunakan untuk mengambil waktu dari sistem
 
 // Struct Login untuk menyimpan beberapa data user yaitu nama, username, password, dan nomor handphone
 typedef struct{
@@ -38,6 +39,10 @@ char login_file[] = "Login User.txt";	//Assign login_file agar menyimpan string 
 void pilihan_menu();			//Merupakan fungsi yang digunakan untuk menampilkan halaman menu utama dari program ini
 void kasir_offline();			//Merupakan fungsi yang digunakan untuk menampilkan halaman kasir offline dari program ini
 void kasir_online();			//Merupakan fungsi yang digunakan untuk menampilkan halaman kasir online dari program ini
+
+void waktu();				//Merupakan fungsi yang digunakan untuk menampilkan waktu yang diambil dari sistem	
+void struk();				//Merupakan fungsi yang digunakan untuk menampilkan inputan dari fungsi kasir_offline
+void struk2();				//Merupakan fungsi yang digunakan untuk menampilkan inputan dari fungsi kasir_online
 
 int main(){
     /*fungsi untuk mengubah warna background terminal menjadi putih dan font menjadi hitam
@@ -773,4 +778,100 @@ void kasir_online(){
 	
     getch();
     system("cls");
+}
+
+//=======================================================================//
+//Nama Fungsi     : Waktu		                       		 //
+//Input Argumen   : -							 //		 
+//Output Argumen  : -                                                    //
+//Deskripsi       : Fungsi ini digunakan untuk mengambil dan menampilkan //
+//		    tanggal dan waktu dari sistem pada saat terjadi      //
+//		    transaksi nanti					 //
+//                                                            		 //
+//Tgl             : 27-12-2021                                           //
+//Oleh            : I Gede Alex Bramartha                                //
+//NIM		  : 2105551024						 //
+//Kelas           : A                                                    //
+//=======================================================================//
+void waktu(){
+    time(&waktuserver);
+    struct tm *waktu = localtime (&waktuserver);
+    printf("%i/%i/%i-%d:%d", waktu -> tm_mday, waktu -> tm_mon + 1, waktu -> tm_year + 1900, waktu -> tm_hour,  waktu -> tm_min);
+} 
+
+//=======================================================================//
+//Nama Fungsi     : Struk dan Struk2                       		 //
+//Input Argumen   : -							 //		 
+//Output Argumen  : pegawai, customer, type, waktu(), acak_id(),         //
+//                  pengemudi, nama_bar, total_bar, harga_bar, komisi,   //
+//		    hasil, uang, dan hasil2                              //
+//Deskripsi       : Fungsi ini digunakan untuk menampilkan struk yang 	 //
+//		    berisi data-data user yang telah diinputkan pada     //
+//		    menu kasir    					 //
+//Tgl             : 27-12-2021                                           //
+//Oleh            : I Gede Alex Bramartha                                //
+//NIM		  : 2105551024						 //
+//Kelas           : A                                                    //
+//=======================================================================//
+
+//Fungsi struk ini digunakan untuk menampilkan rincian pembelian pada kasir offline
+void struk(){
+	printf("\t\t\t\t\t=================================================\n");
+	printf("\t\t\t\t\t                 RINCIAN PEMBELIAN               \n");
+	printf("\t\t\t\t\t-------------------------------------------------\n");
+	
+	//Memanggil isi dari variabel pegawai, fungsi waktu, dan fungsi untuk menampilkan id acak
+	printf("\t\t\t\t\t%s - ", strupr(pegawai)); waktu(); //Fungsi strupr() agar output string menjadi Uppercase
+	printf("\n\t\t\t\t\tID : "); acak_id();
+	printf("\t\t\t\t\t-------------------------------------------------\n");
+	
+	//Memanggil isi dari variabel customer dan type yang telah diinputkan oleh user
+	printf("\t\t\t\t\tCUSTOMER - %s", strupr(customer));
+	printf("\n\t\t\t\t\tTIPE %s", strupr(type));
+	
+	//Memanggil seluruh produk yang disimpan pada variabel nama_bar, total_bar, dan harga_bar dengan looping
+	printf("\n\n\t\t\t\t\tPRODUK YANG DIBELI: \n");
+
+	for(i = 0; i < banyak; i++){
+		printf("\t\t\t\t\t- %-20s \t  x%1d \t   RP. %3.lf \n", strupr(nama_bar[i]), total_bar[i], harga_bar[i]);
+	}
+	
+	//Memanggil isi dari variabel hasil, uang, dan hasil2 yang telah di assign pada kasir offline
+	printf("\n\t\t\t\t\t-------------------------------------------------\n");
+	printf("\t\t\t\t\tTOTAL HARGA      		=> RP. %.lf\n", hasil);
+	printf("\t\t\t\t\tUANG CUSTOMER    		=> RP. %.lf\n", uang);	
+	printf("\t\t\t\t\tKEMBALIAN       		=> RP. %.lf\n", hasil2);
+	printf("\t\t\t\t\t=================================================\n");
+}
+
+//Fungsi struk ini digunakan untuk menampilkan rincian pembelian pada kasir online
+void struk2(){
+	printf("\t\t\t\t\t=================================================\n");
+	printf("\t\t\t\t\t                 RINCIAN PEMBELIAN               \n");
+	printf("\t\t\t\t\t-------------------------------------------------\n");	
+	printf("\t\t\t\t\t%s - ", strupr(pegawai)); waktu(); 
+	printf("\n\t\t\t\t\tID : "); acak_id();
+	printf("\t\t\t\t\t-------------------------------------------------\n");
+
+	printf("\t\t\t\t\tCUSTOMER - %s", strupr(customer));
+	printf("\n\t\t\t\t\tTIPE %s", strupr(type));
+	
+	//Memanggil isi dari variabel pengemudi agar ditampilkan
+	printf("\n\t\t\t\t\tPENGEMUDI - %s", strupr(pengemudi));
+	
+	printf("\n\n\t\t\t\t\tPRODUK YANG DIBELI: \n");
+
+	for(i = 0; i < banyak; i++){
+		printf("\t\t\t\t\t- %-20s \t  x%1d \t   RP. %3.lf \n", strupr(nama_bar[i]), total_bar[i], harga_bar[i]);
+	}
+	
+	printf("\n\t\t\t\t\t-------------------------------------------------\n");
+	
+	//Deklarasi lokal dengan variabel komisi bertipe data char yang berisi value 20% untuk di tampilkan pada komisi
+	char komisi[] = {"20%"};
+	printf("\t\t\t\t\tKOMISI APLIKASI  		=> %s \n", komisi);
+	printf("\t\t\t\t\tTOTAL HARGA      		=> RP. %.lf\n", hasil);
+	printf("\t\t\t\t\tUANG CUSTOMER    		=> RP. %.lf\n", uang);	
+	printf("\t\t\t\t\tKEMBALIAN       		=> RP. %.lf\n", hasil2);
+	printf("\t\t\t\t\t=================================================\n");
 }
