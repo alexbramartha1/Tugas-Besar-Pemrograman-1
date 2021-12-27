@@ -5,10 +5,19 @@
 #include <string.h> 	//Library dalam bahasa pemrograman C yang berfungsi sebagai tempat penyimpanan fungsi-fungsi yang digunakan untuk menangani string ataupun substring
 #include <time.h> 	//Library dalam bahasa pemrograman C yang berfungsi sebagai mengkonversi antara waktu berbagai format tanggal
 
-char pegawai[100]	
-char costumer[100]
-char type[25]
-char pengemudi[100]
+//Deklarasi variabel global yang dipakai pada program ini.
+int banyak;			//Variabel banyak dengan tipe data integer yang digunakan untuk menyimpan input user mengenai jumlah produk yang dibeli pada kasir offline dan online
+int i;				//Variabel i dengan tipe data integer yang digunakan untuk menyimpan nilai increment pada proses looping yang terdapat pada beberapa fungsi nanti
+int total_bar[1000];		//Variabel total_bar dengan tipe data integer yang digunakan untuk menyimpan input user mengenai total per masing-masing produk yang dibeli pada kasir offline dan online
+double harga_bar[1000];		//Variabel harga_bar dengan tipe data double yang digunakan untuk menyimpan input user mengenai harga per masing-masing produk yang dibeli pada kasir offline dan online		
+double uang;			//Variabel uang dengan tipe data double yang digunakan untuk menyimpan input user mengenai jumlah uang customer yang dibayarkan pada saat di kasir offline dan online
+double hasil;			//Variabel hasil dengan tipe data double yang digunakan untuk menyimpan hasil operasi dari variabel harga_bar yang akan dikali dengan variabel total_bar
+double hasil2;			//Variabel hasil2 dengan tipe data double yang digunakan untuk menyimpan hasil operasi dari variabel uang yang akan dikurangi dengan variabel hasil
+char nama_bar[100][100];	//Variabel nama_bar dengan tipe data char yang digunakan untuk menyimpan input dari user mengenai nama produk yang dibeli di kasir offline dan online
+char pegawai[100];		//Variabel pegawai dengan tipe data char yang digunakan untuk menyimpan input dari user mengenai nama pegawai yang melayani pembelian di kasir offline dan online
+char customer[100];		//Variabel customer dengan tipe data char yang digunakan untuk menyimpan input dari user mengenai nama customer yang melakukan pembelian di kasir offline dan online
+char type[25];			//Variabel type dengan tipe data char yang digunakan untuk menyimpan input dari user mengenai tipe pembelian jika di offline apakah Take Away atau Dine In sedangkan di online apakah dari aplikasi gojek, shopee food, atau grab food
+char pengemudi[100];		//Variabel pengemudi dengan tipe data char yang digunakan untuk menyimpan input dari user mengenai siapa pengemudi yang memesan di kasir online
 
 // Struct Login untuk menyimpan beberapa data user yaitu nama, username, password, dan nomor handphone
 typedef struct{
@@ -26,8 +35,9 @@ void sign_in();				//Merupakan fungsi yang digunakan untuk Sign In atau masuk ke
 void sign_up();				//Merupakan fungsi yang digunakan untuk menyimpan perintah-perintah Sign Up (pendaftaran user) dan nantinya akan menyimpan nama, nomor handphone, username, dan password
 char login_file[] = "Login User.txt";	//Assign login_file agar menyimpan string "Login User.txt"
 
-void pilihan_menu();
-
+void pilihan_menu();			//Merupakan fungsi yang digunakan untuk menampilkan halaman menu utama dari program ini
+void kasir_offline();			//Merupakan fungsi yang digunakan untuk menampilkan halaman kasir offline dari program ini
+void kasir_online();			//Merupakan fungsi yang digunakan untuk menampilkan halaman kasir online dari program ini
 
 int main(){
     /*fungsi untuk mengubah warna background terminal menjadi putih dan font menjadi hitam
@@ -38,6 +48,7 @@ int main(){
     header();
 	
     system("cls");
+    return(0);
 }
 
 //=======================================================================//
@@ -249,6 +260,8 @@ void sign_in(){
 	printf("\t\t\t\t\t---------------------------------------------------------\n");
 	getch();
 	system("cls");
+	
+	//Ke fungsi Sign Up jika tidak ada file di directory
         sign_up();
     }
     
@@ -426,11 +439,11 @@ void kasir_offline(){
 	/*Variabel pilihan dengan tipe data integer yang digunakan untuk menyimpan pilihan user antara Kasir,
 	Display Barang, Kembali ke Menu Pembayaran*/
 	int pilihan;
-	/*Tipe data char di dalam bahasa C digunakan untuk menampung 1 digit karakter, pada pilih1, pilih2, utama. 
+	/*Tipe data char di dalam bahasa C digunakan untuk menampung 1 digit karakter, pada pilih1, pilih2, pilih 4, utama. 
 	Variabel yang didefinisikan untuk menampung tipe data char membutuhkan 1 byte memory*/
-	char pilih1, pilih2, utama;
+	char pilih1, pilih2, pilih4, utama;
 	
-	/*menampilkan tampilan dari kasir Offline yang memiliki beberapa pilihan seperti Kasir, Display Barang
+	/*menampilkan tampilan dari kasir Offline yang memiliki beberapa pilihan seperti Kasir
 	dan Kembali ke Menu Pembayaran*/
 	printf("\t\t\t\t\t=========================================================\n");
 	printf("\t\t\t\t\t                      Kasir Offline                      \n");
@@ -451,19 +464,23 @@ void kasir_offline(){
    			printf("\t\t\t\t\t=========================================================\n");
 			printf("\t\t\t\t\t                    Input Data Pembelian                 \n");
 			printf("\t\t\t\t\t---------------------------------------------------------\n");
-			printf("\n\t\t\t\t\tApakah ingin mendisplay barang? (y/t) ");
+			
+			//Pilihan untuk user apakah ingin mendisplay produk yang tersedia atau tidak
+			printf("\n\t\t\t\t\tApakah ingin mendisplay produk? (y/t) ");
 			scanf("\n%c", &pilih4);
 			
+			//Jika user menginputkan y maka program akan memanggil fungsi display dan lanjut ke pengisian data 
 			if(pilih4 == 'y'){
 				getch();
 				display();
 			}
 			
+			//Jika user menginputkan t maka user akan langsung dibawa ke start3
 			else{
 				goto start3;
 			}
 			
-			/*start digunakan untuk kondisi pada saat awal perulangan.berisi perintah untuk memberikan nilai kepada variabel counter*/
+			/*start digunakan untuk kondisi pada saat awal perulangan berisi perintah untuk memberikan nilai kepada variabel counter*/
    			start3:
    			printf("\n\t\t\t\t\tNama Pegawai Kasir => ");
 			//user menginput nama pegawai 
@@ -533,6 +550,7 @@ void kasir_offline(){
 					struk();
 					getch();
 					
+					//Meng assign jika variabel hasil lebih dari 0, maka hasil assign 0
 					if(hasil > 0){
 						hasil = 0;
 					}
@@ -599,9 +617,9 @@ void kasir_online(){
 	/*Variabel pilihan dengan tipe data integer yang digunakan untuk menyimpan pilihan user antara Kasir,
 	Display Barang, Kembali ke Menu Pembayaran*/
 	int pilihan;
-	/*Tipe data char di dalam bahasa C digunakan untuk menampung 1 digit karakter, pada pilih1, pilih2, utama. 
+	/*Tipe data char di dalam bahasa C digunakan untuk menampung 1 digit karakter, pada pilih1, pilih2, pilih4, utama. 
 	Variabel yang didefinisikan untuk menampung tipe data char membutuhkan 1 byte memory*/
-	char pilih1, pilih2, utama;
+	char pilih1, pilih2, pilih4, utama;
 	
 	/*menampilkan tampilan dari Kasir Online yang memiliki beberapa pilihan seperti Kasir, Display Barang
 	dan Kembali ke Menu Pembayaran*/
@@ -624,19 +642,23 @@ void kasir_online(){
    			printf("\t\t\t\t\t=========================================================\n");
 			printf("\t\t\t\t\t                    Input Data Pembelian                 \n");
 			printf("\t\t\t\t\t---------------------------------------------------------\n");
+			
+			//Pilihan untuk user apakah ingin mendisplay produk yang tersedia atau tidak
 			printf("\n\t\t\t\t\tApakah ingin mendisplay barang? (y/t) ");
 			scanf("\n%c", &pilih4);
 			
+			//Jika user menginputkan y maka program akan memanggil fungsi display dan lanjut ke pengisian data
 			if(pilih4 == 'y'){
 				getch();
 				display();
 			}
-	
+			
+			//Jika user menginputkan t maka user akan langsung dibawa ke start3
 			else{
 				goto start3;
 			}	
 			
-			/*start digunakan untuk kondisi pada saat awal perulangan.berisi perintah untuk memberikan nilai kepada variabel counter*/
+			/*start digunakan untuk kondisi pada saat awal perulangan berisi perintah untuk memberikan nilai kepada variabel counter*/
    			start3:
    			printf("\n\t\t\t\t\tNama Pegawai Kasir   => ");
 			//user menginput nama pegawai 
@@ -709,6 +731,7 @@ void kasir_online(){
 					struk2();
 					getch();
 					
+					//Meng assign jika variabel hasil lebih dari 0, maka hasil assign 0
 					if(hasil > 0){
 						hasil = 0;
 					}
