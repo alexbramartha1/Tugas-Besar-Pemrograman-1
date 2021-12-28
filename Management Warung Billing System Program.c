@@ -546,7 +546,7 @@ void kasir_offline(){
 			start2:
 			printf("\n\t\t\t\t\tUang Customer      => Rp. ");
 			//mengscan Uang Costumer yang di inputkan oleh user
-			scanf("%f", &uang);
+			scanf("%lf", &uang);
 			
 			//perhitungan hasil2 sebagai kembalian yang diterima oleh costumer
 			hasil2 = uang - hasil;
@@ -729,7 +729,7 @@ void kasir_online(){
 			start2:
 			printf("\n\t\t\t\t\tUang Customer      => Rp. ");
 			//mengscan Uang Costumer yang di inputkan oleh user
-			scanf("%f", &uang);
+			scanf("%lf", &uang);
 			
 			//perhitungan hasil2 sebagai kembalian yang diterima oleh costumer
 			hasil2 = uang - hasil;
@@ -929,7 +929,7 @@ void add(){
 	
 	//fungsi perulangan untuk menampilkan seberapa banyak barang yang kita tambahkan
 	for(i = 0; i < no; i++){
-		printf("  \t\t\t\t\tNama Produk   : ");
+		printf("\n\t\t\t\t\tNama Produk   : ");
 		scanf("\n%[^\n]s", t.name);
 		
 		printf("  \t\t\t\t\tHarga Produk  : Rp. ");
