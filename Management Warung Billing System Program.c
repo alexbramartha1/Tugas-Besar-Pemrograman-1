@@ -20,7 +20,7 @@ char pegawai[100];		//Variabel pegawai dengan tipe data char yang digunakan untu
 char customer[100];		//Variabel customer dengan tipe data char yang digunakan untuk menyimpan input dari user mengenai nama customer yang melakukan pembelian di kasir offline dan online
 char type[25];			//Variabel type dengan tipe data char yang digunakan untuk menyimpan input dari user mengenai tipe pembelian jika di offline apakah Take Away atau Dine In sedangkan di online apakah dari aplikasi gojek, shopee food, atau grab food
 char pengemudi[100];		//Variabel pengemudi dengan tipe data char yang digunakan untuk menyimpan input dari user mengenai siapa pengemudi yang memesan di kasir online
-char c                          //Variabel c dengan tipe data char untuk mendisplay produk
+char c;                         //Variabel c dengan tipe data char untuk mendisplay produk
 time_t waktuserver;		//Variabel waktuserver yang digunakan untuk mengambil waktu dari sistem
 
 //Struct t1 untuk menyimpan data name dan price untuk produk
