@@ -7,6 +7,7 @@
 #define BUFFER_SIZE 1000 //Mendefine variabel BUFFER_SIZE dengan nilai 1000
 
 //Deklarasi variabel global yang dipakai pada program ini.
+int no;                         //Variabel no dengan tipe data integer yang digunakan untuk menyimpan input berapa produk yang ingin ditambahkan
 int banyak;			//Variabel banyak dengan tipe data integer yang digunakan untuk menyimpan input user mengenai jumlah produk yang dibeli pada kasir offline dan online
 int i;				//Variabel i dengan tipe data integer yang digunakan untuk menyimpan nilai increment pada proses looping yang terdapat pada beberapa fungsi nanti
 int total_bar[1000];		//Variabel total_bar dengan tipe data integer yang digunakan untuk menyimpan input user mengenai total per masing-masing produk yang dibeli pada kasir offline dan online
@@ -20,6 +21,20 @@ char customer[100];		//Variabel customer dengan tipe data char yang digunakan un
 char type[25];			//Variabel type dengan tipe data char yang digunakan untuk menyimpan input dari user mengenai tipe pembelian jika di offline apakah Take Away atau Dine In sedangkan di online apakah dari aplikasi gojek, shopee food, atau grab food
 char pengemudi[100];		//Variabel pengemudi dengan tipe data char yang digunakan untuk menyimpan input dari user mengenai siapa pengemudi yang memesan di kasir online
 time_t waktuserver;		//Variabel waktuserver yang digunakan untuk mengambil waktu dari sistem
+
+int ch;
+int no;
+int no2;
+
+typedef struct{
+	char name[20];
+	int price;
+}t1;
+
+t1 t;
+
+
+
 
 // Struct Login untuk menyimpan beberapa data user yaitu nama, username, password, dan nomor handphone
 typedef struct{
