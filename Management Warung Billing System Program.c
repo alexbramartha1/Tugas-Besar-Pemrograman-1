@@ -22,21 +22,15 @@ char type[25];			//Variabel type dengan tipe data char yang digunakan untuk meny
 char pengemudi[100];		//Variabel pengemudi dengan tipe data char yang digunakan untuk menyimpan input dari user mengenai siapa pengemudi yang memesan di kasir online
 time_t waktuserver;		//Variabel waktuserver yang digunakan untuk mengambil waktu dari sistem
 
-int ch;
-int no;
-int no2;
-
+//Struct t1 untuk menyimpan data name dan price untuk produk
 typedef struct{
 	char name[20];
 	int price;
 }t1;
 
-t1 t;
+t1 t; //Mendeklarasikan variabel t di struct t1
 
-
-
-
-// Struct Login untuk menyimpan beberapa data user yaitu nama, username, password, dan nomor handphone
+//Struct Login untuk menyimpan beberapa data user yaitu nama, username, password, dan nomor handphone
 typedef struct{
     char nama[100];
     char username[20];
@@ -60,9 +54,13 @@ void waktu();				//Merupakan fungsi yang digunakan untuk menampilkan waktu yang 
 void struk();				//Merupakan fungsi yang digunakan untuk menampilkan inputan dari fungsi kasir_offline
 void struk2();				//Merupakan fungsi yang digunakan untuk menampilkan inputan dari fungsi kasir_online
 
-void add();
-void display();
-char recordInven[] = "Penampungan.txt"
+void add();                                                         //Merupakan fungsi yang digunakan untuk menginput produk agar disimpan di Penampungan.txt
+void display();                                                     //Merupakan fungsi yang digunakan untuk menampilkan produk yang tersedia di Penampungan.txt
+void delete();                                                      //Merupakan fungsi yang digunakan untuk menghapus baris yang diinput user lalu mengubah temp file menjadi nama Penampungan.txt
+void deleteLine(FILE *srcFile, FILE *tempFile, const int line);     //Merupakan fungsi yang digunakan untuk menghapus baris yang diinput
+void printFile(FILE *fptr);.                                        //Merupakan fungsi yang digunakan untuk menampilkan produk setelah terjadi penghapusan
+char recordInven[] = "Penampungan.txt";                             //Assign recordInven agar menyimpan string "Penampungan.txt"    
+
 int main(){
     /*fungsi untuk mengubah warna background terminal menjadi putih dan font menjadi hitam
       F untuk background putih dan 0 untuk font hitam*/
