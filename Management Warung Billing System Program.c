@@ -474,7 +474,7 @@ void kasir_offline(){
 	printf("\t\t\t\t\t                      Kasir Offline                      \n");
 	printf("\t\t\t\t\t---------------------------------------------------------\n");	
 	printf("\t\t\t\t\t    1. Kasir          				   \n");
-	printf("\t\t\t\t\t    2. Kembali ke Menu Pembayaran			   \n");
+	printf("\t\t\t\t\t    2. Kembali ke Menu Warung				   \n");
 	printf("\t\t\t\t\t---------------------------------------------------------\n");
 	//user diwajibkan untuk memasukan angka pilihan untuk melanjutkan program Kasir Offline
   	printf("\t\t\t\t\t      Masukkan angka pilihan untuk melanjutkan = ");
@@ -652,7 +652,7 @@ void kasir_online(){
 	printf("\t\t\t\t\t                      Kasir Online                       \n");
 	printf("\t\t\t\t\t---------------------------------------------------------\n");	
 	printf("\t\t\t\t\t    1. Kasir          				   \n");
-	printf("\t\t\t\t\t    2. Kembali ke Menu Pembayaran			   \n");
+	printf("\t\t\t\t\t    2. Kembali ke Menu Warung				   \n");
 	printf("\t\t\t\t\t---------------------------------------------------------\n");
 	//user diwajibkan untuk memasukan angka pilihan untuk melanjutkan program Kasir Online
   	printf("\t\t\t\t\t      Masukkan angka pilihan untuk melanjutkan = ");
