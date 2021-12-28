@@ -936,7 +936,7 @@ void add(){
 		scanf("%d", &t.price);
 	
 	//fprintf digunakan untuk menulis value yang di input ke dalam file
-	fprintf(fp, "\t\t\t\t\t%-20s \t\tRp. %3d    \n", t.name, t.price);
+        fprintf(fp, "\t\t\t\t\t   %-20s \t  Rp. %3d    \n", strupr(t.name), t.price);
 	}	
 	
 	fclose(fp);
