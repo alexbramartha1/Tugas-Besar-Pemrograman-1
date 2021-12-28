@@ -1,9 +1,10 @@
 //Library standar yang digunakan pada bahasa C
-#include <stdio.h> 	//Library dalam bahasa pemrograman C yang berfungsi sebagai input-output
-#include <math.h> 	//Library dalam bahasa pemrograman C yang berfungsi sebagai mendefinisikan fungsi matematika dan makro
-#include <stdlib.h> 	//Library dalam bahasa pemrograman C yang berfungsi sebagai operasi pembanding dan operasi konversi
-#include <string.h> 	//Library dalam bahasa pemrograman C yang berfungsi sebagai tempat penyimpanan fungsi-fungsi yang digunakan untuk menangani string ataupun substring
-#include <time.h> 	//Library dalam bahasa pemrograman C yang berfungsi sebagai mengkonversi antara waktu berbagai format tanggal
+#include <stdio.h> 	 //Library dalam bahasa pemrograman C yang berfungsi sebagai input-output
+#include <math.h> 	 //Library dalam bahasa pemrograman C yang berfungsi sebagai mendefinisikan fungsi matematika dan makro
+#include <stdlib.h> 	 //Library dalam bahasa pemrograman C yang berfungsi sebagai operasi pembanding dan operasi konversi
+#include <string.h> 	 //Library dalam bahasa pemrograman C yang berfungsi sebagai tempat penyimpanan fungsi-fungsi yang digunakan untuk menangani string ataupun substring
+#include <time.h> 	 //Library dalam bahasa pemrograman C yang berfungsi sebagai mengkonversi antara waktu berbagai format tanggal
+#define BUFFER_SIZE 1000 //Mendefine variabel BUFFER_SIZE dengan nilai 1000
 
 //Deklarasi variabel global yang dipakai pada program ini.
 int banyak;			//Variabel banyak dengan tipe data integer yang digunakan untuk menyimpan input user mengenai jumlah produk yang dibeli pada kasir offline dan online
@@ -997,4 +998,73 @@ void acak_id(){
         }
         printf("\n");
     }
+}
+
+//=======================================================================//
+//Nama Fungsi     : Delete                      		 	 //
+//Input Argumen   : - 							 //		 
+//Output Argumen  : -		         			         //
+//Deskripsi       : Fungsi yang digunakan untuk menghapus baris pada     //
+//		    File penyimpanan.txt 				 //	
+//Tgl             : 28-12-2021                                           //
+//Oleh            : I Gede Alex Bramartha                                //
+//NIM		  : 2105551024						 //
+//Kelas           : A                                                    //
+//=======================================================================//
+int delete(){
+    FILE *srcFile;
+    FILE *tempFile;
+
+    int line;
+
+    //Menginput baris keberapa yang ingin dihapus
+	printf("\t\t\t\t\t=========================================================\n");
+	printf("\t\t\t\t\t                      Hapus Produk                \n");
+	printf("\t\t\t\t\t---------------------------------------------------------\n");
+	display();
+    printf("\t\t\t\t\tMasukkan baris keberapa produk yang ingin dihapus!");
+    printf("\n\t\t\t\t\t=> ");
+    scanf("%d", &line);
+
+
+    //Membuka kedua file
+    srcFile  = fopen(recordInven, "r");
+    tempFile = fopen("delete-line.tmp", "w");
+
+    //Jika tidak ada file akan muncul tampilan seperti dibawah
+    if (srcFile == NULL || tempFile == NULL)
+    {
+      	printf("\t\t\t\t\t=========================================================\n");
+		printf("\t\t\t\t\t          FILE IS NOT FOUND IN YOUR DIRECTORY	           \n");
+		printf("\t\t\t\t\t---------------------------------------------------------\n");
+		getch();
+		system("cls");
+        pilihan_menu();
+    }
+
+    //Pindah ke pointer diawal yaitu srcFile
+    rewind(srcFile);
+
+    //Fungsi untuk menghapus baris yang diinput
+    deleteLine(srcFile, tempFile, line);
+
+
+    //Menutup kedua file
+    fclose(srcFile);
+    fclose(tempFile);
+
+
+    //Menghapus file asli dan mengubah nama file temp dengan nama asli
+    remove(recordInven);
+    rename("delete-line.tmp", recordInven);
+
+
+    printf("\n\t\t\t\t\tBerikut adalah Rincian Produk setelah menghapus baris ke-%d!\n", line);
+
+    //Membuka file untuk di display
+    srcFile = fopen(recordInven, "r");
+    display();
+    fclose(srcFile);
+    
+    pilihan_menu();
 }
