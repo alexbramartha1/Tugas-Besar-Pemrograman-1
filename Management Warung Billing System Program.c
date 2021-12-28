@@ -1068,3 +1068,26 @@ int delete(){
     
     pilihan_menu();
 }
+//mencetak konten file.
+void printFile(FILE *fptr)
+{
+    char ch;
+
+    while((ch = fgetc(fptr)) != EOF)
+        putchar(ch);
+}
+
+//fungsi untuk menghapus baris yang telah di input
+void deleteLine(FILE *srcFile, FILE *tempFile, const int line)
+{
+    char buffer[BUFFER_SIZE];
+    int count = 1;
+
+    while ((fgets(buffer, BUFFER_SIZE, srcFile)) != NULL)
+    {
+  
+        if (line != count)
+            fputs(buffer, tempFile);
+        count++;
+    }
+}
