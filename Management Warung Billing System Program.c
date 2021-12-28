@@ -387,7 +387,7 @@ void pilihan_menu(){
 		//menampilkan beberapa pilihan pada menu utama yang ingin digunakan atau dijalankan oleh user
 		system("cls");
 		printf("\t\t\t\t\t=========================================================\n");
-		printf("\t\t\t\t\t                 Menu Plihan Pembayaran	           \n");
+		printf("\t\t\t\t\t                      Menu Warung	                   \n");
 		printf("\t\t\t\t\t---------------------------------------------------------\n");
 		printf("\t\t\t\t\t    1. Kasir Offline   				   \n");
 		printf("\t\t\t\t\t    2. Kasir Online			       	           \n");
