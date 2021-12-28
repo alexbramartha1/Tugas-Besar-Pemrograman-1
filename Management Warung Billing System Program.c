@@ -311,6 +311,7 @@ void sign_in(){
 		printf("\t\t\t\t\t                    Sign In SUCCESS!	                   \n");
 		printf("\t\t\t\t\t---------------------------------------------------------\n");
 		getch();
+                pilihan_menu();
 		system("cls");
 		
         }
