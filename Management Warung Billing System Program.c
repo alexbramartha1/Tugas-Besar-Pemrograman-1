@@ -1034,7 +1034,7 @@ int delete(){
     //Jika tidak ada file akan muncul tampilan seperti dibawah
     if (srcFile == NULL || tempFile == NULL)
     {
-      	printf("\t\t\t\t\t=========================================================\n");
+          	printf("\t\t\t\t\t=========================================================\n");
 		printf("\t\t\t\t\t          FILE IS NOT FOUND IN YOUR DIRECTORY	           \n");
 		printf("\t\t\t\t\t---------------------------------------------------------\n");
 		getch();
