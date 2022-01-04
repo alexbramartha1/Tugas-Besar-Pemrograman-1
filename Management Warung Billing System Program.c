@@ -62,6 +62,7 @@ void deleteLine(FILE *srcFile, FILE *tempFile, const int line);     //Merupakan 
 void printFile(FILE *fptr);                                         //Merupakan fungsi yang digunakan untuk menampilkan produk setelah terjadi penghapusan
 void acak_id();                                                     //Merupakan fungsi yang digunaka untuk membuat karakter acak
 char recordInven[] = "Penampungan.txt";                             //Assign recordInven agar menyimpan string "Penampungan.txt"    
+void simpan();                                                      //Merupakan fungsi yang digunakan untuk menampilkan riwayat struk pembayaran yang disimpan di struk.txt
 
 int main(){
     /*fungsi untuk mengubah warna background terminal menjadi putih dan font menjadi hitam
@@ -394,7 +395,8 @@ void pilihan_menu(){
 		printf("\t\t\t\t\t    3. Tambah Produk					   \n");
 		printf("\t\t\t\t\t    4. Display Produk					   \n");
 		printf("\t\t\t\t\t    5. Delete Produk					   \n");
-		printf("\t\t\t\t\t    6. Exit					           \n");
+		printf("\t\t\t\t\t    6. Melihat Riwayat Transaksi		           \n");
+                printf("\t\t\t\t\t    7. Exit					           \n");
 		printf("\t\t\t\t\t---------------------------------------------------------\n");
   		printf("\t\t\t\t\t      Masukkan angka pilihan untuk melanjutkan = ");
 		//meng scan apa yang dipilih oleh user dengan tipe data integer
@@ -426,8 +428,11 @@ void pilihan_menu(){
 			delete();
 			break;
 		case 6:
-			/*jika user memilih case 6 akan dibawa kepada output yang berisikan akhir dari program karena
-			case 5 merupakan pilihan untuk Exit dari program*/
+			simpan();
+                        break;
+                case 7:
+                        /*jika user memilih case 7 akan dibawa kepada output yang berisikan akhir dari program karena
+			case 7 merupakan pilihan untuk Exit dari program*/
 			system("cls");
 			printf("\t\t\t\t\t=========================================================\n");
 			printf("\t\t\t\t\t        Terima Kasih Sudah Menggunakan Program Ini       \n");
@@ -814,9 +819,15 @@ void kasir_online(){
 //Kelas           : A                                                    //
 //=======================================================================//
 void waktu(){
+    FILE *si;
+    
+    si = fopen("struk.txt", "a");
     time(&waktuserver);
     struct tm *waktu = localtime (&waktuserver);
     printf("%i/%i/%i-%d:%d", waktu -> tm_mday, waktu -> tm_mon + 1, waktu -> tm_year + 1900, waktu -> tm_hour,  waktu -> tm_min);
+    fprintf(si, "\n\n\t\t\t\t\tTANGGAL PEMBAYARAN	: ");
+    fprintf(si, "%i/%i/%i-%d:%d", waktu -> tm_mday, waktu -> tm_mon + 1, waktu -> tm_year + 1900, waktu -> tm_hour,  waktu -> tm_min);
+    fclose(si);
 } 
 
 //=======================================================================//
@@ -836,6 +847,9 @@ void waktu(){
 
 //Fungsi struk ini digunakan untuk menampilkan rincian pembelian pada kasir offline
 void struk(){
+        FILE *struk;
+	struk = fopen("struk.txt", "a");
+
 	printf("\t\t\t\t\t=================================================\n");
 	printf("\t\t\t\t\t                 RINCIAN PEMBELIAN               \n");
 	printf("\t\t\t\t\t-------------------------------------------------\n");
@@ -862,10 +876,55 @@ void struk(){
 	printf("\t\t\t\t\tUANG CUSTOMER    		=> RP. %.lf\n", uang);	
 	printf("\t\t\t\t\tKEMBALIAN       		=> RP. %.lf\n", hasil2);
 	printf("\t\t\t\t\t=================================================\n");
+
+        fprintf(struk,"\n\t\t\t\t\t=================================================\n");
+	fprintf(struk,"\t\t\t\t\t                 RINCIAN PEMBELIAN               \n");
+	fprintf(struk,"\t\t\t\t\t-------------------------------------------------\n");
+	
+	fprintf(struk,"\t\t\t\t\tPEGAWAI - %s", strupr(pegawai));
+	fprintf(struk,"\n\t\t\t\t\t-------------------------------------------------\n");
+	
+	fprintf(struk,"\t\t\t\t\tCUSTOMER - %s", strupr(customer));
+	fprintf(struk,"\n\t\t\t\t\tTIPE %s", strupr(type));
+	
+	fprintf(struk,"\n\n\t\t\t\t\tPRODUK YANG DIBELI: \n");
+
+	for(i = 0; i < banyak; i++){
+		fprintf(struk,"\t\t\t\t\t- %-20s \t  x%1d \t   RP. %3.lf \n", strupr(nama_bar[i]), total_bar[i], harga_bar[i]);
+	}
+	
+	fprintf(struk,"\n\t\t\t\t\t-------------------------------------------------\n");
+	fprintf(struk,"\t\t\t\t\tTOTAL HARGA      		=> RP. %.lf\n", hasil);
+	fprintf(struk,"\t\t\t\t\tUANG CUSTOMER    		=> RP. %.lf\n", uang);	
+	fprintf(struk,"\t\t\t\t\tKEMBALIAN       		=> RP. %.lf\n", hasil2);
+	fprintf(struk,"\t\t\t\t\t=================================================\n");
+	
+	fclose(struk);
+}
+
+void simpan(){
+	char s;
+	FILE *simpan;
+	
+	simpan = fopen("struk.txt", "r");
+	
+	printf("\n\t\t\t\t\t=================================================\n");
+	printf("\t\t\t\t\t                Riwayat Pembayaran              \n");
+	printf("\t\t\t\t\t-------------------------------------------------\n");
+	//Perulangan while untuk mencetak isi dari File yang telah di inputkan sebelumnya pada void 
+	while((s = getc(simpan)) != EOF){	
+		printf("%c", s);
+	}
+	fclose(simpan);
+	getch();	
+	pilihan_menu();
 }
 
 //Fungsi struk ini digunakan untuk menampilkan rincian pembelian pada kasir online
 void struk2(){
+        FILE *struk2;
+	struk2 = fopen("struk.txt", "a");
+
 	printf("\t\t\t\t\t=================================================\n");
 	printf("\t\t\t\t\t                 RINCIAN PEMBELIAN               \n");
 	printf("\t\t\t\t\t-------------------------------------------------\n");	
@@ -894,7 +953,35 @@ void struk2(){
 	printf("\t\t\t\t\tUANG CUSTOMER    		=> RP. %.lf\n", uang);	
 	printf("\t\t\t\t\tKEMBALIAN       		=> RP. %.lf\n", hasil2);
 	printf("\t\t\t\t\t=================================================\n");
+
+        fprintf(struk2,"\n\t\t\t\t\t=================================================\n");
+	fprintf(struk2,"\t\t\t\t\t                 RINCIAN PEMBELIAN               \n");
+	fprintf(struk2,"\t\t\t\t\t-------------------------------------------------\n");
+	
+	fprintf(struk2,"\t\t\t\t\tPEGAWAI - %s", strupr(pegawai)); 
+	fprintf(struk2,"\n\t\t\t\t\t-------------------------------------------------\n");
+	
+	fprintf(struk2,"\t\t\t\t\tCUSTOMER - %s", strupr(customer));
+	fprintf(struk2,"\n\t\t\t\t\tTIPE %s", strupr(type));
+	
+	fprintf(struk2,"\n\t\t\t\t\tPENGEMUDI - %s", strupr(pengemudi));
+	
+	fprintf(struk2,"\n\n\t\t\t\t\tPRODUK YANG DIBELI: \n");
+
+	for(i = 0; i < banyak; i++){
+		fprintf(struk2,"\t\t\t\t\t- %-20s \t  x%1d \t   RP. %3.lf \n", strupr(nama_bar[i]), total_bar[i], harga_bar[i]);
+	}
+	
+	fprintf(struk2,"\n\t\t\t\t\t-------------------------------------------------\n");
+	fprintf(struk2,"\t\t\t\t\tKOMISI APLIKASI  		=> %s \n", komisi);
+	fprintf(struk2,"\t\t\t\t\tTOTAL HARGA      		=> RP. %.lf\n", hasil);
+	fprintf(struk2,"\t\t\t\t\tUANG CUSTOMER    		=> RP. %.lf\n", uang);	
+	fprintf(struk2,"\t\t\t\t\tKEMBALIAN       		=> RP. %.lf\n", hasil2);
+	fprintf(struk2,"\t\t\t\t\t=================================================\n");
+	
+	fclose(struk2);
 }
+
 //=======================================================================//
 //Nama Fungsi     : Tambah Produk                       		 //
 //Input Argumen   : t.name , t.price					 //		 
@@ -994,6 +1081,10 @@ void display(){
 
 //void acak_id digunakan sebagai pencetak id pada struk
 void acak_id(){
+    FILE *sp;
+     
+    sp = fopen("struk.txt", "a");
+
     //static const char yang berfungsi untuk mendefinisikan sebuah variable yang nilainya tak dapat di rubah atau sudah di tetapkan oleh user
     static const char huruf[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     //menampilkan jumlah pencetakan yang ditetapkan
@@ -1001,7 +1092,7 @@ void acak_id(){
     size_t i, j;
 
     srand(time(NULL));
-
+    fprintf(sp, "\n\t\t\t\t\tID STRUK		: ");
     for(i = 0; i < 1; i++) {
         for(j = 0; j < jumlah; j++) {
             char random_char;
@@ -1011,9 +1102,11 @@ void acak_id(){
 	    //fungsi untuk memanggil secara random pada huruf[random_index] 
             random_char = huruf[random_index];
             printf("%c", random_char);
+            fprintf(sp, "%c", random_char);
         }
         printf("\n");
     }
+    fclose(sp);
 }
 
 //=======================================================================//
