@@ -589,6 +589,9 @@ void kasir_offline(){
 				}
 				//jika memilih character selain 'y'
 				else{
+                                        if(hasil > 0){
+						hasil = 0;
+					}
 					system("cls");
 					//user akan dibawa kepada fungsi start
 					goto start;
@@ -770,7 +773,10 @@ void kasir_online(){
 				}
 				//jika memilih character selain 'y'
 				else{
-					system("cls");
+					if(hasil > 0){
+						hasil = 0;
+					}
+                                        system("cls");
 					goto start;
 				}	
 			}
